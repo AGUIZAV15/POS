@@ -27,7 +27,7 @@ function idProductoEliminar(idProd){
 }
 
 function eliminar(){
-    $.post("/PointSale/src/controller/delete_producto.php",
+    $.post("/POS/src/controller/delete_producto.php",
   {
     id: idv,
     active: 2
@@ -37,7 +37,7 @@ function eliminar(){
     
     mensajeAviso(data, 'secondary');
     setTimeout(limpiarMensajeAviso,3000);  
-    $('#parteRecargar').load('/PointSale/src/controller/cargar_productos.php');
+    $('#parteRecargar').load('/POS/src/controller/cargar_productos.php');
    }else{
     mensajeAviso(data, 'secondary');
     setTimeout(limpiarMensajeAviso,4000);  

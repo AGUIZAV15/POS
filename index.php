@@ -11,9 +11,9 @@ include './src/templates/header.php';
     </button> 
     <div class="collapse navbar-collapse" id="collapse">
       <div class="navbar-nav">
-        <a class="nav-link" aria-current="page" href="/PointSale/src/model/ventas/vender_productos.php">VENTAS</a>
-        <a class="nav-link" href="/PointSale/src/model/productos/listar_productos.php">PRODUCTOS</a>
-        <a class="nav-link" href="/PointSale/src/model/historialVentas/historialVentas.php">HISTORIAL</a>
+        <a class="nav-link" aria-current="page" href="/POS/src/model/ventas/vender_productos.php">VENTAS</a>
+        <a class="nav-link" href="/POS/src/model/productos/listar_productos.php">PRODUCTOS</a>
+        <a class="nav-link" href="/POS/src/model/historialVentas/historialVentas.php">HISTORIAL</a>
         <!-- <a class="nav-link" href="#">Precios</a>
         <a class="nav-link disabled">Deshabilitado</a> -->
       </div>
@@ -49,21 +49,21 @@ include './src/templates/header.php';
 
 <script>
   $('document').ready(function(){
-    $('#rellenarProductosVender').load('/PointSale/src/model/ventas/listar_productos_vender.php');
+    $('#rellenarProductosVender').load('/POS/src/model/ventas/listar_productos_vender.php');
   });
   $('document').ready(function(){
-    $('#qty').load('/PointSale/src/controller/cargar_carrito.php');
+    $('#qty').load('/POS/src/controller/cargar_carrito.php');
   });
  
   function añadirAlCarrito(codigo){
-    $.post("/PointSale/src/controller/añadir_prod_carrito.php",
+    $.post("/POS/src/controller/añadir_prod_carrito.php",
   {
     id: codigo,
     qty: 1
   },
   function(data, status){   
     if(data === 'ok'){
-      $('#qty').load('/PointSale/src/controller/cargar_carrito.php');
+      $('#qty').load('/POS/src/controller/cargar_carrito.php');
      
     }else{
       console.log("error");

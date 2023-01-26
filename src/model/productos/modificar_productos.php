@@ -83,7 +83,7 @@ function verificarValor(value){
 
 function llenarCamposTexto(idProd){
     
-    $.post("/PointSale/src/controller/buscar_producto_id.php",
+    $.post("/POS/src/controller/buscar_producto_id.php",
   {
     id: idProd
   },
@@ -114,7 +114,7 @@ const ex = verificarValor(existencia.value) ? existencia.value : producto.existe
 
   if(cod && nom && pv && pc && ex)
   {
-    $.post("/PointSale/src/controller/update_producto.php",
+    $.post("/POS/src/controller/update_producto.php",
   {
     id: producto.id,
     codigo: cod,
@@ -129,7 +129,7 @@ const ex = verificarValor(existencia.value) ? existencia.value : producto.existe
     
     mensajeAviso(data, 'secondary');
     setTimeout(limpiarMensajeAviso,3000);  
-    $('#parteRecargar').load('/PointSale/src/controller/cargar_productos.php');
+    $('#parteRecargar').load('/POS/src/controller/cargar_productos.php');
    }else{
     mensajeAviso(data, 'secondary');
     setTimeout(limpiarMensajeAviso,4000);  
