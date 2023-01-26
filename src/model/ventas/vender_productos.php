@@ -6,15 +6,15 @@ include "../../templates/header.php";
 <!-- MENU PRINCIPAL DE LA PAGINA-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/POS/index.php">DICAC</a>
+    <a class="navbar-brand" href="/PointSale/index.php">DICAC</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="/POS/src/model/ventas/vender_productos.php">VENTAS</a>
-        <a class="nav-link" href="/POS/src/model/productos/listar_productos.php">PRODUCTOS</a>
-        <a class="nav-link" href="/POS/src/model/historialVentas/historialVentas.php">HISTORIAL</a>
+        <a class="nav-link active" aria-current="page" href="/PointSale/src/model/ventas/vender_productos.php">VENTAS</a>
+        <a class="nav-link" href="/PointSale/src/model/productos/listar_productos.php">PRODUCTOS</a>
+        <a class="nav-link" href="/PointSale/src/model/historialVentas/historialVentas.php">HISTORIAL</a>
         <!-- <a class="nav-link" href="#">Precios</a>
         <a class="nav-link disabled">Deshabilitado</a> -->
       </div>
@@ -80,17 +80,17 @@ function limpiarMensajeAviso(){
 }
 
 $(document).ready(function() {
-    $('#parteRecargar').load('/POS/src/controller/cargar_tabla_venta.php');
+    $('#parteRecargar').load('/PointSale/src/controller/cargar_tabla_venta.php');
 });
 function dirigirMenuPrincipal(){
-  location.href = '/POS/index.php';
+  location.href = '/PointSale/index.php';
 }
 
 function efectuarVenta(){
   descuento = document.getElementById('area_descuento').value;
   total = document.getElementById('cTotal').innerText;
 if(total !== "$0.00"){
-$.post("/POS/src/controller/efectuar_venta_productos.php",
+$.post("/PointSale/src/controller/efectuar_venta_productos.php",
   {    
     descuento,
     total
@@ -98,7 +98,7 @@ $.post("/POS/src/controller/efectuar_venta_productos.php",
   function(data, status){  
     console.log(data);
     if(data === 'ok'){           
-    $('#parteRecargar').load('/POS/src/controller/cargar_tabla_venta.php');
+    $('#parteRecargar').load('/PointSale/src/controller/cargar_tabla_venta.php');
    }else{
     console.log("error");
    }
@@ -114,11 +114,11 @@ function cancelarVenta(){
   
   total = document.getElementById('cTotal').innerText;
 if(total !== "$0.00"){
-  $.get("/POS/src/controller/cancelar_venta_prod.php",
+  $.get("/PointSale/src/controller/cancelar_venta_prod.php",
   function(data, status){      
     
     if(data === 'd-ok'){           
-    $('#parteRecargar').load('/POS/src/controller/cargar_tabla_venta.php');
+    $('#parteRecargar').load('/PointSale/src/controller/cargar_tabla_venta.php');
     document.getElementById('area_descuento').value = 0
    }else{
     console.log("error");
@@ -133,14 +133,14 @@ if(total !== "$0.00"){
 
 function eliminarProductoVenta(idProducto,cantidad){
   
-$.post("/POS/src/controller/quitar_prod_carrito.php",
+$.post("/PointSale/src/controller/quitar_prod_carrito.php",
   {
     id: idProducto,
     qty: cantidad
   },
   function(data, status){      
     if(data === 'u-ok' || data === 'd-ok'){           
-    $('#parteRecargar').load('/POS/src/controller/cargar_tabla_venta.php');
+    $('#parteRecargar').load('/PointSale/src/controller/cargar_tabla_venta.php');
    }else{
     console.log("error");
    }
