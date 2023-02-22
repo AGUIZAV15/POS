@@ -2,7 +2,9 @@
  require_once '../model/conexion/conexion.php';            
 $str = $_POST['descuento'];
  $descuento = floatval($str) > 0 ? floatval($str) : 0.0;
-$total = floatval(substr($_POST['total'],1)) - $descuento;
+$total = floatval(substr($_POST['total'],1)) - (floatval(substr($_POST['total'],1)) * ($descuento/100));
+$pago = floatval($_POST['pago']);
+$cambio = $pago - $total;
 $idVenta = 0;
 
     $result = mysqli_query ($conn,"INSERT INTO `ventas` (`total`, `descuento`) VALUES ( '$total', '$descuento')") or die(mysqli_error($conn));
@@ -21,7 +23,7 @@ $idVenta = 0;
         endforeach;
 
         mysqli_close($conn); 
-        echo "ok";
+        echo $cambio;
     }else{
         echo "error";
     }

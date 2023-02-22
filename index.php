@@ -13,6 +13,7 @@ include './src/templates/header.php';
       <div class="navbar-nav">
         <a class="nav-link" aria-current="page" href="/POS/src/model/ventas/vender_productos.php">VENTAS</a>
         <a class="nav-link" href="/POS/src/model/productos/listar_productos.php">PRODUCTOS</a>
+        <a class="nav-link" href="/POS/src/model/materiaPrima/listar_materia.php">MATERIA PRIMA</a>
         <a class="nav-link" href="/POS/src/model/historialVentas/historialVentas.php">HISTORIAL</a>
         <!-- <a class="nav-link" href="#">Precios</a>
         <a class="nav-link disabled">Deshabilitado</a> -->
@@ -29,6 +30,10 @@ include './src/templates/header.php';
     <p class="fs-1">Bienvenido de vuelta <?php echo $_SESSION['usuario'];?> </p>
     <p class="fs-4 fw-bold"><i class="fa-solid fa-cart-shopping"></i>  Carrito: (<span id="qty">0</span>) </p>
     
+    <div class="input-group mb-3">
+      <span class="input-group-text">Producto a buscar </span>
+      <input type="text" class="form-control" id="elm-buscar" aria-label="producto a buscar">  
+    </div>
   </div>
   </div>
 </div>
@@ -37,10 +42,11 @@ include './src/templates/header.php';
 
 
 <div class="container">
-  <div class="row">   
+  <div class="row">  
+  <div class="table-responsive"> 
    <div id="rellenarProductosVender">
 
-
+  </div>
    </div>
   </div>
 </div>
@@ -48,11 +54,22 @@ include './src/templates/header.php';
 
 
 <script>
-  $('document').ready(function(){
-    $('#rellenarProductosVender').load('/POS/src/model/ventas/listar_productos_vender.php');
-  });
+
+$('document').ready(function () {
+   (function($) {
+       $('#elm-buscar').keyup(function () {
+            var ValorBusqueda = new RegExp($(this).val(), 'i');
+            $('.busquedaRapida tr').hide();
+             $('.busquedaRapida tr').filter(function () {
+                return ValorBusqueda.test($(this).text());
+              }).show();
+                })
+      }(jQuery));
+});
+
   $('document').ready(function(){
     $('#qty').load('/POS/src/controller/cargar_carrito.php');
+    $('#rellenarProductosVender').load('/POS/src/model/ventas/listar_productos_vender.php');    
   });
  
   function añadirAlCarrito(codigo){

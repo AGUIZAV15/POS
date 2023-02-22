@@ -34,8 +34,8 @@ $result = mysqli_query ($conn,"SELECT * FROM ventas WHERE status_venta = 1") or 
       <div class="card-footer">
       <?php 
            $t = sprintf("%.2f", floatval($val["total"]));
-           $d = sprintf("%.2f", floatval($val["descuento"]));
-           echo "TOTAL: <b>$".$t."</b> DESCUENTO: <b>$".$d."</b> ";
+           $d = sprintf("%.1f", floatval($val["descuento"]));
+           echo "TOTAL: <b>$".$t."</b> DESCUENTO: <b>".$d." %</b> ";
            ?>
            <br>
            <div class="d-flex justify-content-end">                  

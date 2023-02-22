@@ -1,3 +1,18 @@
+<table class="table">
+  <thead>
+  <tr>
+   <!-- <th>Codigo</th> -->
+    <th>Producto</th>
+        <th>Precio</th>
+   <!-- <th>Precio Compra</th> -->
+    <th>
+    <div class="d-flex justify-content-center">   
+    Añadir al carrito
+    </div>
+  </th>        
+  </tr>
+  </thead>   
+<tbody class="busquedaRapida">
 <?php 
 require_once '../conexion/conexion.php';
 
@@ -6,24 +21,21 @@ include "../../templates/header.php";
 $result = mysqli_query ($conn,"SELECT * FROM productos WHERE active = 1") or die(mysqli_error($conn));
 ?>
  <?php foreach ($result as $val): ?>
- <div class="col-12 col-sm-12">
-    <div class="card">
-      <div class="card-body">
-    <h5 class="card-title"><?php echo $val["nombre"]." (".$val["codigo"].")"; ?></h5>
-    <p class="card-text"> 
-    <?php 
-           $pv = sprintf("%.2f", floatval($val["precio_venta"]));
-           echo "Precio del producto: <b>$".$pv."</b>";
-           ?>
-           <br>
-           
-    </p>
-    <div class="d-flex justify-content-end">                  
-    <button class="btn btn-primary" onclick="añadirAlCarrito(<?php echo $val['id'];?>)"><i class="fa-solid fa-cart-shopping"></i> Añadir al carrito</button>   
+ <tr>
+    <td><?php echo $val["nombre"]." (".$val["codigo"].")"; ?></td>
     
-      </div>
-    </div>
-    </div>
+    <td>
+          <?php 
+           $pv = sprintf("%.2f", floatval($val["precio_venta"]));
+           echo "<b>$".$pv."</b>";
+           ?>
+     </td>
+     <td>     
+          <div class="d-flex justify-content-center">                  
+            <button class="btn btn-primary" onclick="añadirAlCarrito(<?php echo $val['id'];?>)"><i class="fa-solid fa-cart-shopping"></i></button>       
+          </div>
+      </td>
+    </tr>
     <?php endforeach ?>
    
      
@@ -40,5 +52,5 @@ $result = mysqli_query ($conn,"SELECT * FROM productos WHERE active = 1") or die
   mysqli_free_result($result);
   mysqli_close($conn);
   ?>
-
+</tbody>
 <?php  include "../../templates/footer.php"; ?>

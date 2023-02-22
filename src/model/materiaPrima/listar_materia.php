@@ -13,8 +13,8 @@ include "../../templates/header.php";
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" aria-current="page" href="/POS/src/model/ventas/vender_productos.php">VENTAS</a>
-        <a class="nav-link active" href="/POS/src/model/productos/listar_productos.php">PRODUCTOS</a>
-        <a class="nav-link" href="/POS/src/model/materiaPrima/listar_materia.php">MATERIA PRIMA</a>
+        <a class="nav-link" href="/POS/src/model/productos/listar_productos.php">PRODUCTOS</a>
+        <a class="nav-link active" href="/POS/src/model/materiaPrima/listar_materia.php">MATERIA PRIMA</a>
         <a class="nav-link" href="/POS/src/model/historialVentas/historialVentas.php">HISTORIAL</a>
         <!-- <a class="nav-link" href="#">Precios</a>
         <a class="nav-link disabled">Deshabilitado</a> -->
@@ -33,13 +33,13 @@ include "../../templates/header.php";
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading fs-1">
-        Productos
+        Materia prima
         <div class="btn-group" role="group" aria-label="...">
-         <button type="button" class="btn btn-success" id="añadir_producto" onclick="añadirProducto()"><i class="fa-solid fa-plus"></i></button>
+         <button type="button" class="btn btn-success" id="añadir_producto" onclick="añadirMateria()"><i class="fa-solid fa-plus"></i></button>
         </div>
         <br>
         <div class="input-group mb-3">
-        <span class="input-group-text">Producto a buscar </span>
+        <span class="input-group-text">Materia a buscar </span>
         <input type="text" class="form-control" id="elm-buscar" aria-label="producto a buscar">  
     </div>
     </div>
@@ -58,8 +58,8 @@ include "../../templates/header.php";
   Lanzar demo de modal
 </button> -->
 
-<?php include "./modificar_productos.php"; ?>
-<?php include "./eliminar_productos.php"; ?>
+<?php include "./modificar_materia.php"; ?>
+<?php include "./eliminar_materia.php"; ?>
 <script>
   $('document').ready(function () {
    (function($) {
@@ -74,11 +74,11 @@ include "../../templates/header.php";
 });
 
   $(document).ready(function(){
-    $('#parteRecargar').load('/POS/src/controller/cargar_productos.php');
+    $('#parteRecargar').load('/POS/src/controller/cargar_materia.php');
   });
   
-  function añadirProducto(){
-    location.href = '/POS/src/model/productos/añadir_productos.php';
+  function añadirMateria(){
+    location.href = '/POS/src/model/materiaPrima/añadir_materia.php';
   }
   function cargarProductos(){
 

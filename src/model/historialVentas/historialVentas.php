@@ -13,6 +13,7 @@ include "../../templates/header.php";
       <div class="navbar-nav">
         <a class="nav-link" aria-current="page" href="/POS/src/model/ventas/vender_productos.php">VENTAS</a>
         <a class="nav-link" href="/POS/src/model/productos/listar_productos.php">PRODUCTOS</a>
+        <a class="nav-link" href="/POS/src/model/materiaPrima/listar_materia.php">MATERIA PRIMA</a>
         <a class="nav-link active" href="/POS/src/model/historialVentas/historialVentas.php">HISTORIAL</a>
         <!-- <a class="nav-link" href="#">Precios</a>
         <a class="nav-link disabled">Deshabilitado</a> -->

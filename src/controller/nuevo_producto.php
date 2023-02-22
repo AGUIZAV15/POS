@@ -6,8 +6,10 @@ require_once '../model/conexion/conexion.php';
     $precioVenta = $_POST["precioVenta"];
     $precioCompra = $_POST["precioCompra"];
     $existencia = $_POST["existencia"];
+    $materia_prima = $_POST["materia_prima"];
     
-    $sentencia = "INSERT INTO productos(codigo, nombre, precio_venta, precio_compra, existencia) VALUES ('$codigo', '$nombre','$precioVenta', '$precioCompra', '$existencia')";
+    if($materia_prima > 0){
+    $sentencia = "INSERT INTO productos(codigo, nombre, precio_venta, precio_compra, existencia, id_materia_prima) VALUES ('$codigo', '$nombre','$precioVenta', '$precioCompra', '$existencia', '$materia_prima')";
     
     $result = mysqli_query($conn, $sentencia) or die(mysqli_error($conn));    
     
@@ -19,7 +21,10 @@ require_once '../model/conexion/conexion.php';
     else {
         $msg = $result;
     }
-
+}
+else {
+    $msg = "Seleccione un material";
+}
     echo $msg;
 
 

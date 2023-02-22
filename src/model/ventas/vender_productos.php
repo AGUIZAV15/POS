@@ -14,6 +14,7 @@ include "../../templates/header.php";
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="/POS/src/model/ventas/vender_productos.php">VENTAS</a>
         <a class="nav-link" href="/POS/src/model/productos/listar_productos.php">PRODUCTOS</a>
+        <a class="nav-link" href="/POS/src/model/materiaPrima/listar_materia.php">MATERIA PRIMA</a>
         <a class="nav-link" href="/POS/src/model/historialVentas/historialVentas.php">HISTORIAL</a>
         <!-- <a class="nav-link" href="#">Precios</a>
         <a class="nav-link disabled">Deshabilitado</a> -->
@@ -48,8 +49,10 @@ include "../../templates/header.php";
 </div>
 <!-- </div c= panel panle-default>"-->
 <div class="input-group mb-3">
-  <span class="input-group-text">Descuento: $</span>
-  <input type="number" class="form-control" min="0" value ="0" id="area_descuento" aria-label="Cantidad (al dólar más cercano)">  
+  <span class="input-group-text">Descuento (%): </span>
+  <input type="number" class="form-control" min="0" max="100" value ="0" id="area_descuento" aria-label="Cantidad (al dólar más cercano)">  
+  <span class="input-group-text">Se recibe : $</span>
+  <input type="number" class="form-control" value ="0" id="area_pago" aria-label="Cantidad (al dólar más cercano)">  
 </div>
 </div>
 <!-- card body-->
@@ -88,23 +91,31 @@ function dirigirMenuPrincipal(){
 
 function efectuarVenta(){
   descuento = document.getElementById('area_descuento').value;
+  pago = document.getElementById('area_pago').value;
   total = document.getElementById('cTotal').innerText;
-if(total !== "$0.00"){
+if(total !== "$0.00" && pago !== undefined && pago > 0){ // <------- validar campos para venta
+ // console.log(pago);
 $.post("/POS/src/controller/efectuar_venta_productos.php",
   {    
     descuento,
-    total
+    total,
+    pago
   },
   function(data, status){  
-    console.log(data);
-    if(data === 'ok'){           
+//    console.log(data);
+    if(data !== 'error'){           
     $('#parteRecargar').load('/POS/src/controller/cargar_tabla_venta.php');
+    document.getElementById('area_descuento').value = 0;
+    document.getElementById('area_pago').value = 0;
+     mensajeAviso("El cambio del cliente es: $" + data, "success");
+     setTimeout(limpiarMensajeAviso,10000);  
    }else{
-    console.log("error");
+    mensajeAviso("No se pudo efectuar la venta", "danger");
+ setTimeout(limpiarMensajeAviso,4000);  
    }
   });
 }else{
- mensajeAviso("No hay productos para vender", "danger");
+ mensajeAviso("Verifique productos a vender", "danger");
  setTimeout(limpiarMensajeAviso,4000);  
 }
   
