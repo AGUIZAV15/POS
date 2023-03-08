@@ -29,8 +29,8 @@
 
 		<label for="existencia">Existencia:</label>
 		<input class="form-control" name="existencia" required type="number" id="existencia" placeholder="Cantidad o existencia">
-		<br><br>
-        
+		<br>
+    <div id="listarMat"></div>  
         <!-- <input class="btn btn-info" type="button" value="Guardar" id="enviar" onclick="crearNuevoProducto()"><span>&nbsp;&nbsp;</span>        
     <input class="btn btn-secondary" type="button" value="Volver" id="volver" onclick="redirigirAListarProducto()"> -->
 	</form>
@@ -55,6 +55,12 @@
   const existencia = document.getElementById('existencia');
  // alert en el codigo
  const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+ $(document).ready(function(){
+    $('#listarMat').load('/POS/src/controller/cargar_mat.php');
+  });
+  
+
 //OBJETO DEL PRODUCTO
 const producto = {
   id: 0,
@@ -101,6 +107,7 @@ function llenarCamposTexto(idProd){
   precioVenta.value = datos[3] ;
   precioCompra.value = datos[4];
   existencia.value = datos[5];
+  document.getElementById('cb_materia').value = datos[6];
   });
  
 }
@@ -121,7 +128,8 @@ const ex = verificarValor(existencia.value) ? existencia.value : producto.existe
     nombre: nom,
     precioVenta: pv,
     precioCompra: pc,
-    existencia: ex
+    existencia: ex,
+    materia_prima : document.getElementById('cb_materia').value
   },
   function(data, status){
    

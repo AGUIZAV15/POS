@@ -1,7 +1,9 @@
 <?php 
 require_once '../model/conexion/conexion.php';
 
-$result = mysqli_query ($conn,"SELECT * FROM ventas WHERE status_venta = 1 ORDER BY fecha DESC") or die(mysqli_error($conn));
+$totalVendido = 0.0;
+
+$result = mysqli_query ($conn,"SELECT * FROM ventas WHERE status_venta = 1 AND fecha = CURDATE()") or die(mysqli_error($conn));
 ?>
  <?php foreach ($result as $val): ?>
  <div class="col-12 col-sm-12">
@@ -35,18 +37,24 @@ $result = mysqli_query ($conn,"SELECT * FROM ventas WHERE status_venta = 1 ORDER
       <?php 
            $t = sprintf("%.2f", floatval($val["total"]));
            $d = sprintf("%.1f", floatval($val["descuento"]));
+           $totalVendido += (floatval($val["total"]) - (floatval($val["total"]) * floatval($val["descuento"]))/100);
            echo "TOTAL: <b>$".$t."</b> DESCUENTO: <b>".$d." %</b> ";
            ?>
-           <br>
-           <div class="d-flex justify-content-end">                  
-    <button class="btn btn-danger" onclick="cancelarVenta(<?php echo $val['id'];?>)"><i class="fa-solid fa-trash"></i> Cancelar Venta</button>   
-    
-      </div>
+           <br>           
       </div>
     </div>
     </div>
     <?php endforeach ?>
-   
+    <div class="card border-warning">
+  <div class="card-body">
+    <center>
+  <?php 
+           $t = sprintf("%.2f", floatval($totalVendido));           
+           echo "<h3>TOTAL VENDIDO EN EL DÍA: <b>$".$t."</b></h3>";
+           ?>
+           </center>
+  </div>
+</div>
      
         
 

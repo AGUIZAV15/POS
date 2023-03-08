@@ -18,7 +18,7 @@ require_once '../conexion/conexion.php';
 
 include "../../templates/header.php";
 
-$result = mysqli_query ($conn,"SELECT * FROM productos WHERE active = 1") or die(mysqli_error($conn));
+$result = mysqli_query ($conn,"SELECT * FROM productos WHERE active = 1 AND existencia > 0") or die(mysqli_error($conn));
 ?>
  <?php foreach ($result as $val): ?>
  <tr>

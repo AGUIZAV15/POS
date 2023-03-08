@@ -11,7 +11,7 @@ require_once '../model/conexion/conexion.php';
     
      $operacion = mysqli_query($conn, $sentencia) or die(mysqli_error($conn));    
     $result = mysqli_fetch_array($operacion);
-     $msg = $result["id"].",".$result["codigo"].",".$result["nombre"].",".$result["precio_venta"].",".$result["precio_compra"].",".$result["existencia"];
+     $msg = $result["id"].",".$result["codigo"].",".$result["nombre"].",".$result["precio_venta"].",".$result["precio_compra"].",".$result["existencia"].",".$result["id_materia_prima"];
 
      mysqli_free_result($operacion);
      mysqli_close($conn);

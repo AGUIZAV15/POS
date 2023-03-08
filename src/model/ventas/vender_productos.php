@@ -50,9 +50,9 @@ include "../../templates/header.php";
 <!-- </div c= panel panle-default>"-->
 <div class="input-group mb-3">
   <span class="input-group-text">Descuento (%): </span>
-  <input type="number" class="form-control" min="0" max="100" value ="0" id="area_descuento" aria-label="Cantidad (al dólar más cercano)">  
+  <input type="number" class="form-control" min="0" max="100" placeholder="Porcentaje de descuento" id="area_descuento" aria-label="Cantidad (al dólar más cercano)">  
   <span class="input-group-text">Se recibe : $</span>
-  <input type="number" class="form-control" value ="0" id="area_pago" aria-label="Cantidad (al dólar más cercano)">  
+  <input type="number" class="form-control" placeholder="Efectivo recibido" id="area_pago" aria-label="Cantidad (al dólar más cercano)">  
 </div>
 </div>
 <!-- card body-->
@@ -70,7 +70,7 @@ include "../../templates/header.php";
 <script>
    // alert en el codigo
    const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
-
+    
    function mensajeAviso(message, type) {
   var wrapper = document.createElement('div')
   wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
@@ -82,7 +82,7 @@ function limpiarMensajeAviso(){
   alertPlaceholder.innerHTML = '';
 }
 
-$(document).ready(function() {
+$(document).ready(function() {   
     $('#parteRecargar').load('/POS/src/controller/cargar_tabla_venta.php');
 });
 function dirigirMenuPrincipal(){
@@ -93,7 +93,13 @@ function efectuarVenta(){
   descuento = document.getElementById('area_descuento').value;
   pago = document.getElementById('area_pago').value;
   total = document.getElementById('cTotal').innerText;
-if(total !== "$0.00" && pago !== undefined && pago > 0){ // <------- validar campos para venta
+  if (document.querySelector('tr.table-danger') !== null) {
+    alert('Class exists');
+    mensajeAviso("Hay productos que exceden la cantidad en almacen, verifique los datos e intente de nuevo", "danger");
+    setTimeout(limpiarMensajeAviso,4000);  
+}
+else {
+    if(total !== "$0.00" && pago !== undefined && pago > 0){ // <------- validar campos para venta
  // console.log(pago);
 $.post("/POS/src/controller/efectuar_venta_productos.php",
   {    
@@ -115,10 +121,10 @@ $.post("/POS/src/controller/efectuar_venta_productos.php",
    }
   });
 }else{
- mensajeAviso("Verifique productos a vender", "danger");
+ mensajeAviso("Verifique los campos faltantes", "danger");
  setTimeout(limpiarMensajeAviso,4000);  
 }
-  
+  } 
 }
 
 function cancelarVenta(){

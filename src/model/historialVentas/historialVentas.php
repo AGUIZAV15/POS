@@ -29,7 +29,23 @@ include "../../templates/header.php";
   <div class="card-body">
     <p class="fs-1">Bienvenido de vuelta <?php echo $_SESSION['usuario'];?><br>
     Listado de Ventas
-    </p>       
+    </p>   
+
+    <div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="switchBusquedaHoy">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Total vendido el dia de hoy</label>
+</div>
+
+    <div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="switchBusquedaDia">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Resumén de venta por día</label>
+</div>
+
+    <div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="switchBusquedaMes">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Resumén de venta por més</label>
+</div>    
+    
   </div>
   </div>
 </div>
@@ -48,11 +64,50 @@ include "../../templates/header.php";
 
 
 
-<script>
+<script>  
   $('document').ready(function(){
     $('#rellenarVentas').load('/POS/src/controller/listar_ventas_efectuadas.php');
   });
-  
+  $("#switchBusquedaHoy").on( 'change', function() {
+    if( $(this).is(':checked') ) {
+        // Hacer algo si el checkbox ha sido seleccionado
+        // alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
+        document.getElementById("switchBusquedaMes").checked = false;
+        document.getElementById("switchBusquedaDia").checked = false;
+        $('#rellenarVentas').load('/POS/src/controller/listar_ventas_hoy.php');
+    } else {
+        // Hacer algo si el checkbox ha sido deseleccionado
+        // alert("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
+        $('#rellenarVentas').load('/POS/src/controller/listar_ventas_efectuadas.php');
+    }
+});
+  $("#switchBusquedaDia").on( 'change', function() {
+    if( $(this).is(':checked') ) {
+        // Hacer algo si el checkbox ha sido seleccionado
+        // alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
+        document.getElementById("switchBusquedaMes").checked = false;
+        document.getElementById("switchBusquedaHoy").checked = false;
+        $('#rellenarVentas').load('/POS/src/controller/listar_ventas_por_dia.php');
+    } else {
+        // Hacer algo si el checkbox ha sido deseleccionado
+        // alert("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
+        $('#rellenarVentas').load('/POS/src/controller/listar_ventas_efectuadas.php');
+    }
+});
+$("#switchBusquedaMes").on( 'change', function() {
+    if( $(this).is(':checked') ) {
+        // Hacer algo si el checkbox ha sido seleccionado
+        // alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
+        document.getElementById("switchBusquedaDia").checked = false;
+        document.getElementById("switchBusquedaHoy").checked = false;
+        $('#rellenarVentas').load('/POS/src/controller/listar_ventas_por_mes.php');
+    } else {
+        // Hacer algo si el checkbox ha sido deseleccionado
+        // alert("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
+        $('#rellenarVentas').load('/POS/src/controller/listar_ventas_efectuadas.php');
+    }
+});
+
   function cancelarVenta(id){
     $.post("/POS/src/controller/eliminar_venta.php",
   {

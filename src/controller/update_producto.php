@@ -7,9 +7,9 @@
     $precioVenta = $_POST["precioVenta"];
     $precioCompra = $_POST["precioCompra"];
     $existencia = $_POST["existencia"];
-    
+    $materia_prima = $_POST["materia_prima"];
     $sentencia = 
-    "UPDATE `productos` SET `codigo` = '$codigo', `nombre` = '$nombre', `precio_venta` = '$precioVenta', `precio_compra` = '$precioCompra', `existencia` = '$existencia' WHERE `productos`.`id` = '$id'";
+    "UPDATE `productos` SET `codigo` = '$codigo', `nombre` = '$nombre', `precio_venta` = '$precioVenta', `precio_compra` = '$precioCompra', `existencia` = '$existencia', `id_materia_prima` = '$materia_prima' WHERE `productos`.`id` = '$id'";
     $result = mysqli_query($conn, $sentencia) or die(mysqli_error($conn));    
     
     if ($result === true){
