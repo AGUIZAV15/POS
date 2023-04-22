@@ -16,6 +16,12 @@ include "../../templates/header.php";
         <a class="nav-link" href="/POS/src/model/productos/listar_productos.php">PRODUCTOS</a>
         <a class="nav-link active" href="/POS/src/model/materiaPrima/listar_materia.php">MATERIA PRIMA</a>
         <a class="nav-link" href="/POS/src/model/historialVentas/historialVentas.php">HISTORIAL</a>
+
+        <a style="position:absolute;right:15px" class="nav-link btn btn-secondary" href="/POS/src/model/mensajes/historial_mensajes.php" role="button"> 
+        <i class="fa-solid fa-bell fa-lg" style="color: #ffffff;"></i>
+        <div id="efecto-solicitud">         
+  </div>
+            </a>
         <!-- <a class="nav-link" href="#">Precios</a>
         <a class="nav-link disabled">Deshabilitado</a> -->
       </div>
@@ -75,6 +81,7 @@ include "../../templates/header.php";
 
   $(document).ready(function(){
     $('#parteRecargar').load('/POS/src/controller/cargar_materia.php');
+    $('#efecto-solicitud').load('/POS/src/model/mensajes/cantidad_mensajes.php');
   });
   
   function añadirMateria(){

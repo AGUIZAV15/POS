@@ -1,11 +1,11 @@
 <?php 
-include './src/templates/header.php';
+include "../../templates/header.php";
 ?>
 
 <!-- MENU PRINCIPAL DE LA PAGINA-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="./index.php">DICAC</a>    
+    <a class="navbar-brand" href="/POS/index.php">DICAC</a>    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-controls="collapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button> 
@@ -15,16 +15,16 @@ include './src/templates/header.php';
         <a class="nav-link" href="/POS/src/model/productos/listar_productos.php">PRODUCTOS</a>
         <a class="nav-link" href="/POS/src/model/materiaPrima/listar_materia.php">MATERIA PRIMA</a>
         <a class="nav-link" href="/POS/src/model/historialVentas/historialVentas.php">HISTORIAL</a>
-           
-        
+
         <a style="position:absolute;right:15px" class="nav-link btn btn-secondary" href="/POS/src/model/mensajes/historial_mensajes.php" role="button"> 
         <i class="fa-solid fa-bell fa-lg" style="color: #ffffff;"></i>
         <div id="efecto-solicitud">         
   </div>
             </a>
-        <!--<a class="nav-link disabled">Deshabilitado</a> -->
-        
-      </div>                               
+        <!-- 
+        AGUIZAV te recomiendo en el futuro mejorar el funcionamiento de las notificaciones, de momento sirve para lo que fue creado        
+        -->
+      </div>
     </div>     
   </div>
 </nav>
@@ -34,13 +34,10 @@ include './src/templates/header.php';
   <div class="col-12 col-sm-12">  
   <div class="card">    
   <div class="card-body">
-    <p class="fs-1">Bienvenido de vuelta <?php echo $_SESSION['usuario'];?> </p>
-    <p class="fs-4 fw-bold"><i class="fa-solid fa-cart-shopping"></i>  Carrito: (<span id="qty">0</span>) </p>
-    
-    <div class="input-group mb-3">
-      <span class="input-group-text">Producto a buscar </span>
-      <input type="text" class="form-control" id="elm-buscar" aria-label="producto a buscar">  
-    </div>
+    <p class="fs-1">
+        Bienvenido de vuelta <?php echo $_SESSION['usuario'];?><br>
+        Listado de Notificaciones   
+    </p>         
   </div>
   </div>
 </div>
@@ -49,54 +46,37 @@ include './src/templates/header.php';
 
 
 <div class="container">
-  <div class="row">  
-  <div class="table-responsive"> 
-   <div id="rellenarProductosVender">
+  <div class="row">   
+   <div id="rellenarMensajes">
 
-  </div>
+
    </div>
   </div>
 </div>
 
 
 
-<script>
-
-$('document').ready(function () {
-   (function($) {
-       $('#elm-buscar').keyup(function () {
-            var ValorBusqueda = new RegExp($(this).val(), 'i');
-            $('.busquedaRapida tr').hide();
-             $('.busquedaRapida tr').filter(function () {
-                return ValorBusqueda.test($(this).text());
-              }).show();
-                })
-      }(jQuery));
-});
-
+<script>  
   $('document').ready(function(){
-    $('#qty').load('/POS/src/controller/cargar_carrito.php');
-    $('#rellenarProductosVender').load('/POS/src/model/ventas/listar_productos_vender.php');  
+    $('#rellenarMensajes').load('/POS/src/controller/listar_mensajes.php');
     $('#efecto-solicitud').load('/POS/src/model/mensajes/cantidad_mensajes.php');
   });
- 
-  function añadirAlCarrito(codigo){
-    $.post("/POS/src/controller/añadir_prod_carrito.php",
+  
+  function leerMensaje(id){
+    $.post("/POS/src/controller/leer_mensaje.php",
   {
-    id: codigo,
-    qty: 1
+    id
   },
   function(data, status){   
-    if(data === 'ok'){
-      $('#qty').load('/POS/src/controller/cargar_carrito.php');
-     
+    if(data === 'ok'){      
+      $('#rellenarMensajes').load('/POS/src/controller/listar_mensajes.php');
+      $('#efecto-solicitud').load('/POS/src/model/mensajes/cantidad_mensajes.php');
     }else{
       console.log("error");
     }
     
   });
   }
-
 </script>
 
-<?php include './src/templates/footer.php'; ?>
+<?php include '../../templates/footer.php'; ?>

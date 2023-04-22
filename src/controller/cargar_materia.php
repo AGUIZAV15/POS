@@ -14,7 +14,7 @@
   $result = mysqli_query ($conn,"SELECT * FROM materia_prima WHERE active = 1 ORDER BY cantidad ASC") or die(mysqli_error($conn));
   ?>
       <?php foreach ($result as $val): 
-         if($val['cantidad'] >= 10){  
+         if($val['cantidad'] >= 5){  
         ?>
         <tr>
             <!--<td></td>-->
