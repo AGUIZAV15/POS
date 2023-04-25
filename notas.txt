@@ -1,0 +1,19 @@
+session_start();
+
+$username = $_SESSION['user'];
+$password = $_SESSION['pass'];
+
+
+session_start();
+session_unset();
+session_destroy();
+
+mi logica sería de la siguiente manera:
+> en mi login recibo NOMBRE y CONTRASEÑA
+> cuando hago submit...
+	> en mi backend verificamos que el usuario este en la base de datos
+	> guardamos su nombre + ok + status, podemos guardar el tipo de usuario
+	> en cada documento verificamos que la informacion especificada sea valida y no exista alguna alteracion de los datos
+
+
+debemos de cuidar la session ID por que si no por ese medio nos pueden hackear, aun así vamos a checar todo con calma

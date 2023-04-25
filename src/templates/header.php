@@ -1,8 +1,5 @@
 <?php 
 session_start();
-$_SESSION['usuario'] = "Admin";
-if(!isset($_SESSION["carrito"])) $_SESSION["carrito"] = [];
-//session_unset();
 ?>
 <!DOCTYPE html>
 <html lang="en">
